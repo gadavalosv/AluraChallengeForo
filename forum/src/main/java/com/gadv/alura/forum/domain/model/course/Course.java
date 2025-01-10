@@ -20,4 +20,13 @@ public class Course {
 
     @Column(nullable = false, length = 255)
     private String category;
+
+    public void updateData(CourseUpdateData courseUpdateData) {
+        if(courseUpdateData.name() != null && !courseUpdateData.name().isEmpty()){
+            this.name = courseUpdateData.name();
+        }
+        if(courseUpdateData.category() != null && !courseUpdateData.category().isEmpty()){
+            this.category = courseUpdateData.category();
+        }
+    }
 }

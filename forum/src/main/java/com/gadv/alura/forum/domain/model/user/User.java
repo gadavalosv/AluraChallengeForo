@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -40,6 +41,11 @@ public class User implements UserDetails {
     )
     private Set<Profile> profiles = new HashSet<>();
 
+    public User(UserRegisterData userRegisterData, PasswordEncoder passwordEncoder) {
+        this.email = userRegisterData.email();
+        this.password = passwordEncoder.encode(userRegisterData.password());
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return profiles.stream()
@@ -70,5 +76,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void updateData(UserUpdateData userUpdateData, PasswordEncoder passwordEncoder) {
+        if(userUpdateData.name() != null && !userUpdateData.name().isEmpty()) {
+            this.name =  userUpdateData.name();
+        }
+        if(userUpdateData.password() != null && !userUpdateData.password().isEmpty()) {
+            this.password = passwordEncoder.encode(userUpdateData.password());
+        }
     }
 }

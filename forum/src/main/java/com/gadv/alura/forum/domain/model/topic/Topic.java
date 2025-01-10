@@ -45,8 +45,14 @@ public class Topic {
     }
 
     public void updateData(TopicUpdateData topicUpdateData) {
-        this.title = (topicUpdateData.title() != null && !topicUpdateData.title().isEmpty()) ? topicUpdateData.title() : this.title;
-        this.message = (topicUpdateData.message() != null && !topicUpdateData.message().isEmpty()) ? topicUpdateData.message() : this.message;
-        this.status = (topicUpdateData.status() != null && !topicUpdateData.status().isEmpty()) ? topicUpdateData.status() : this.status;
+        if((topicUpdateData.title() != null && !topicUpdateData.title().isEmpty())) {
+            this.title = topicUpdateData.title();
+        }
+        if(topicUpdateData.message() != null && !topicUpdateData.message().isEmpty()) {
+            this.message = topicUpdateData.message();
+        }
+        if(topicUpdateData.status() != null && !topicUpdateData.status().isEmpty()) {
+            this.status = topicUpdateData.status();
+        }
     }
 }

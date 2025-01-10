@@ -16,4 +16,10 @@ public class Profile {
     private Short id;
     @Column(nullable = false, unique = true, length = 255)
     private String name;
+
+    public void updateData(ProfileUpdateData profileUpdateData) {
+        if(profileUpdateData.name() != null && !profileUpdateData.name().isEmpty()){
+            this.name = profileUpdateData.name();
+        }
+    }
 }

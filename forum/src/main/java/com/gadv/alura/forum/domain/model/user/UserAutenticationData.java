@@ -4,9 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public record UserRegisterData(
-        @NotBlank(message = "{name.required}")
-        String name,
+public record UserAutenticationData(
         @NotBlank(message = "{email.required}")
         @Email(message = "{email.invalid}")
         String email,

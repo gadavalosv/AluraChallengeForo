@@ -48,7 +48,11 @@ public class Response {
     }
 
     public void updateData(ResponseUpdateData responseUpdateData) {
-        this.message = (responseUpdateData.message() != null && !responseUpdateData.message().isEmpty()) ? responseUpdateData.message() : this.message;
-        this.isSolution = (responseUpdateData.isSolution() != null) ? responseUpdateData.isSolution() : this.isSolution;
+        if(responseUpdateData.message() != null && !responseUpdateData.message().isEmpty()) {
+            this.message = responseUpdateData.message();
+        }
+        if(responseUpdateData.isSolution() != null) {
+            this.isSolution = responseUpdateData.isSolution();
+        }
     }
 }
