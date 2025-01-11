@@ -23,7 +23,7 @@ public class AutenticationController {
     @Autowired
     private TokenService tokenService;
     @PostMapping
-    public ResponseEntity autenticateUser(@RequestBody @Valid UserAutenticationData userAutenticationData){
+    public ResponseEntity<JWTTokenData> autenticateUser(@RequestBody @Valid UserAutenticationData userAutenticationData){
         Authentication authToken = new UsernamePasswordAuthenticationToken(userAutenticationData.email(), userAutenticationData.password());
         Authentication authenticatedUser = authenticationManager.authenticate(authToken);
         String tokenJWT = tokenService.generateToken((User) authenticatedUser.getPrincipal());

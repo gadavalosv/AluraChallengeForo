@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,19 +33,20 @@ public class TopicController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Topic>> getAllTopics(Pageable pageable) {
-        var topics = topicRepository.findAll(pageable);
+    public ResponseEntity<Page<TopicResponseData>> getAllTopics(Pageable pageable) {
+        var topics = topicRepository.findAll(pageable).map(TopicResponseData::new);
         return ResponseEntity.ok(topics);
     }
 
-    @GetMapping("/course/{courseName}")
-    public ResponseEntity<Page<Topic>> getTopicsByCourseName(@PathVariable String courseName, Pageable pageable) {
-        var topics = topicRepository.findByCourse_Name(courseName, pageable);
+    @GetMapping("/course/{courseId}")
+    public ResponseEntity<Page<TopicResponseData>> getTopicsByCourseName(@PathVariable Long courseId, Pageable pageable) {
+        var topics = topicRepository.findByCourse_Id(courseId, pageable).map(TopicResponseData::new);
         return ResponseEntity.ok(topics);
     }
 
     @PutMapping("/{id}")
     @Transactional
+    @PreAuthorize("@userAccessService.canModifyTopic(#id)")
     public ResponseEntity<TopicResponseData> updateTopic(@PathVariable Long id, @RequestBody @Valid TopicUpdateData topicUpdateData) {
         var topic = topicRepository.findById(id).orElse(null);
         if (topic == null) {

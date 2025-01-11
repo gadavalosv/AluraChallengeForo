@@ -54,6 +54,6 @@ public class TokenService {
     private Instant generateExpirationDate(){
         ZoneId zoneId = ZoneId.of("Mexico/General");
         ZoneOffset zoneOffset = zoneId.getRules().getOffset(Instant.now());
-        return LocalDateTime.now().plusHours(24).toInstant(zoneOffset); //tutorial: ZoneOffset.of("-06:00") instead of zoneOffset
+        return LocalDateTime.now().plusHours(12).toInstant(zoneOffset); //tutorial: ZoneOffset.of("-06:00") instead of zoneOffset
     }
 }

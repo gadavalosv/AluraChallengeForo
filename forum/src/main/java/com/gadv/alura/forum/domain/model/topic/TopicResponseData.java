@@ -11,10 +11,10 @@ public record TopicResponseData(
         @NotBlank(message = "{message.required}")
         String message,
         String status,
-        Long authorId,
+        String authorName,
         String courseName
 ) {
         public TopicResponseData(Topic topic) {
-                this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getStatus(), topic.getAuthor().getId(), topic.getCourse().getName());
+                this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getStatus(), topic.getAuthor().getName(), topic.getCourse().getName());
         }
 }

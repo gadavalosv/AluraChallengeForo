@@ -1,0 +1,2 @@
+--MANUALLY CHANGED VIA:
+--update users set password='$2a$10$g4.zXSeq.t8/sMDIA7GpeO6deW80iEtNJE.eLjbiEUmADzqkoP5vO'; --Password@Test1

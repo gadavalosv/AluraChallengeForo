@@ -1,11 +1,8 @@
 package com.gadv.alura.forum.controller;
 
-import com.gadv.alura.forum.domain.model.response.ResponseDetailData;
-import com.gadv.alura.forum.domain.model.response.ResponseRegisterData;
-import com.gadv.alura.forum.domain.model.response.ResponseUpdateData;
+import com.gadv.alura.forum.domain.model.response.*;
 import com.gadv.alura.forum.repository.ResponseRepository;
 import com.gadv.alura.forum.repository.TopicRepository;
-import com.gadv.alura.forum.domain.model.response.Response;
 import com.gadv.alura.forum.repository.UserRepository;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
@@ -48,13 +45,13 @@ public class ResponseController {
     }
 
     @GetMapping("/topic/{topicId}")
-    public ResponseEntity<Page<Response>> getResponsesByTopic(@PathVariable Long topicId, Pageable pageable) {
+    public ResponseEntity<Page<ResponseResponseData>> getResponsesByTopic(@PathVariable Long topicId, Pageable pageable) {
         var topicExists = topicRepository.existsById(topicId);
         if (!topicExists) {
             return ResponseEntity.notFound().build();
         }
 
-        var responses = responseRepository.findByTopic_Id(topicId, pageable);
+        var responses = responseRepository.findByTopic_Id(topicId, pageable).map(ResponseResponseData::new);
         return ResponseEntity.ok(responses);
     }
 
